@@ -8,8 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D372A144203F17A000D91086 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372A143203F17A000D91086 /* AppDelegate.swift */; };
-		D372A146203F17A000D91086 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372A145203F17A000D91086 /* ViewController.swift */; };
-		D372A149203F17A000D91086 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D372A147203F17A000D91086 /* Main.storyboard */; };
+		D372A146203F17A000D91086 /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372A145203F17A000D91086 /* TodoListViewController.swift */; };
 		D372A14B203F17A000D91086 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D372A14A203F17A000D91086 /* Assets.xcassets */; };
 		D372A14E203F17A000D91086 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D372A14C203F17A000D91086 /* LaunchScreen.storyboard */; };
 		D372A159203F17A100D91086 /* TodoListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D372A158203F17A100D91086 /* TodoListTests.swift */; };
@@ -36,8 +35,7 @@
 /* Begin PBXFileReference section */
 		D372A140203F17A000D91086 /* TodoList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TodoList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D372A143203F17A000D91086 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D372A145203F17A000D91086 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		D372A148203F17A000D91086 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D372A145203F17A000D91086 /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
 		D372A14A203F17A000D91086 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D372A14D203F17A000D91086 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D372A14F203F17A100D91086 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -98,8 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				D372A143203F17A000D91086 /* AppDelegate.swift */,
-				D372A145203F17A000D91086 /* ViewController.swift */,
-				D372A147203F17A000D91086 /* Main.storyboard */,
+				D372A145203F17A000D91086 /* TodoListViewController.swift */,
 				D372A14A203F17A000D91086 /* Assets.xcassets */,
 				D372A14C203F17A000D91086 /* LaunchScreen.storyboard */,
 				D372A14F203F17A100D91086 /* Info.plist */,
@@ -234,7 +231,6 @@
 			files = (
 				D372A14E203F17A000D91086 /* LaunchScreen.storyboard in Resources */,
 				D372A14B203F17A000D91086 /* Assets.xcassets in Resources */,
-				D372A149203F17A000D91086 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,7 +255,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D372A146203F17A000D91086 /* ViewController.swift in Sources */,
+				D372A146203F17A000D91086 /* TodoListViewController.swift in Sources */,
 				D372A144203F17A000D91086 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -296,14 +292,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		D372A147203F17A000D91086 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D372A148203F17A000D91086 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		D372A14C203F17A000D91086 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
