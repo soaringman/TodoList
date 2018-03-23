@@ -19,7 +19,8 @@ class AppAlexeyDelegate: UIResponder, UIApplicationDelegate {
         window.makeKeyAndVisible()
         self.window = window
         
-        let vc = TodoListViewController()
+        let todoDataProvider = TodoDataProvider()
+        let vc = TodoListViewController(todoDataProvider: todoDataProvider)
         let navigationViewController = UINavigationController(rootViewController: vc)
         window.rootViewController = navigationViewController
         

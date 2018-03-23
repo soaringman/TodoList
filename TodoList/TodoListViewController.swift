@@ -8,46 +8,87 @@
 
 import UIKit
 
-class TodoListViewController: UIViewController {
-    var greatingLabel: UILabel!
-    var todoListTableView: UITableView!
+class TodoListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    private let todoDataProvider: TodoDataProvider
+    
+    // MARK: Subviews
+    private var todoListTableView: UITableView!
+    
+    private var todoItems: [TodoItem] = []
+    
+    init(todoDataProvider: TodoDataProvider) {
+        self.todoDataProvider = todoDataProvider
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor.yellow
+        navigationItem.title = "TodoList"
+        view.backgroundColor = UIColor.white
         
         edgesForExtendedLayout = UIRectEdge()
         
-        greatingLabel = UILabel(frame: CGRect.zero)
-        greatingLabel.text = "Привет TodoList"
-        view.addSubview(greatingLabel)
-        
         todoListTableView = UITableView(frame: CGRect.zero)
-        todoListTableView.backgroundColor = UIColor.gray
+        todoListTableView.dataSource = self
+        todoListTableView.delegate = self
         view.addSubview(todoListTableView)
+        
+        todoItems = todoDataProvider.getTodoItems()
+        todoListTableView.reloadData()
     }
-    
-    let greatingLabelHeight: CGFloat = 30.0
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        let greatingFrame = CGRect(
-            x: 0,
-            y: 0,
-            width: view.bounds.width,
-            height: greatingLabelHeight
-        )
-        greatingLabel.frame = greatingFrame
+        todoListTableView.frame = view.bounds
+    }
+    
+    
+    // MARK: UITableViewDataSource
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return todoItems.count
+    }
+    
+    let cellIdentifier = "TodoCellIdentifier"
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: UITableViewCell
         
-        let todoListFrame = CGRect(
-            x: 0,
-            y: greatingLabelHeight,
-            width: view.bounds.width,
-            height: view.bounds.height - greatingLabelHeight
+        if let reusedCell = todoListTableView.dequeueReusableCell(withIdentifier: cellIdentifier) {
+            cell = reusedCell
+        } else {
+            cell = UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
+        }
+        
+        return cell
+    }
+    
+    
+    // MARK: UITableViewDelegate
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 44
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let item = todoItems[indexPath.row]
+        cell.textLabel?.text = "\(item.theme) - \(item.text)"
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        let todoItem = todoItems[indexPath.row]
+        let detailsViewController = TodoDetailsViewController(
+            todoItem: todoItem,
+            todoDataProvider: todoDataProvider
         )
-        todoListTableView.frame = todoListFrame
+        
+        navigationController?.pushViewController(detailsViewController, animated: true)
     }
 }
