@@ -45,16 +45,21 @@ class TodoDetailsViewController: UIViewController {
         /*
          todoDetailsView = UIView(frame: CGRect.zero)
          
-         //Добавляем наши поля
-         todoLabeldateTime = todoItem.dateTime
-         todoLabelTheme = todoItem.theme
-         todoLabelText = todoItem.text
+         //Присваиваем нашим полям значения соответствующих полей из TodoItem
+         todoLabeldateTime.text = todoItem.dateTime
+         todoLabelTheme.text = todoItem.theme
+         todoLabelText.text = todoItem.text
          
          //есть сомнения по поводу правильности ниженаписанного так как isComleted булево значение
          todoImageisCompleted = todoItem.isCompleted
          
          //добавляю мою вьюху как Subview
          view.addSubview(todoDetailsView)
+         
+         //Добавляем Labes's на наш todoDetailsView (по идее что бы он был виден нужно его добавить с индексом 2)
+         view.addSubview(todoLabeldateTime)
+         view.addSubview(todoLabelTheme)
+         view.addSubview(todoLabelText)
          
          //Использую для того что бы расширить DetailsView на весь экран
          override func viewDidLayoutSubviews() {
@@ -65,6 +70,6 @@ class TodoDetailsViewController: UIViewController {
          //Надо задать отступы для полей (todoLabeldateTime = todoItem,todoLabelTheme, todoLabelText)
          //
  */
-    
+   
     }
 }
