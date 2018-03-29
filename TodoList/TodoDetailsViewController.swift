@@ -9,27 +9,28 @@
 import UIKit
 
 class TodoDetailsViewController: UIViewController {
-    
+    // MARK: Dependencies
     private let todoItem: TodoItem
     private let todoDataProvider: TodoDataProvider
-    /*
-    //Писал все в комитах потому что не понимаю как можно проинициализировать
-    //Создам переменнную для того что бы в дальнейшем использовать ее для описания вьюхи размером на весь свободный TodoDetailsViewController
-    private let todoDetailsView: UIView!
-     
-    //добавляю новые переменные (типа UILabel для того что бы в них в дальнейшем в них положить содержимое TodoItem соответствующих полей )
-    private var todoLabeldateTime: UILabel
-    private var todoLabelTheme: UILabel
-    private var todoLabelText: UILabel
-    private var todoImageisCompleted: UIImage
     
-    */
-    init(todoItem: TodoItem, todoDataProvider: TodoDataProvider) {
+    
+    // MARK: Subviews
+    private var dateTimeLabel: UILabel
+    private var themeLabel: UILabel
+    private var textLabel: UILabel
+
+    
+    // MARK: Init
+    init(todoItem: TodoItem,
+         todoDataProvider: TodoDataProvider)
+    {
         self.todoItem = todoItem
         self.todoDataProvider = todoDataProvider
         
-    
-        
+        dateTimeLabel = UILabel(frame: .zero)
+        themeLabel = UILabel(frame: .zero)
+        textLabel = UILabel(frame: .zero)
+       
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -37,39 +38,82 @@ class TodoDetailsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    // MARK: Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Визуальная настройка вью контроллера
         navigationItem.title = todoItem.text
         view.backgroundColor = UIColor.white
-        /*
-         todoDetailsView = UIView(frame: CGRect.zero)
-         
-         //Присваиваем нашим полям значения соответствующих полей из TodoItem
-         todoLabeldateTime.text = todoItem.dateTime
-         todoLabelTheme.text = todoItem.theme
-         todoLabelText.text = todoItem.text
-         
-         //есть сомнения по поводу правильности ниженаписанного так как isComleted булево значение
-         todoImageisCompleted = todoItem.isCompleted
-         
-         //добавляю мою вьюху как Subview
-         view.addSubview(todoDetailsView)
-         
-         //Добавляем Labes's на наш todoDetailsView (по идее что бы он был виден нужно его добавить с индексом 2)
-         view.addSubview(todoLabeldateTime)
-         view.addSubview(todoLabelTheme)
-         view.addSubview(todoLabelText)
-         
-         //Использую для того что бы расширить DetailsView на весь экран
-         override func viewDidLayoutSubviews() {
-         super.viewDidLayoutSubviews()
-         
-         todoDetailsView.frame = view.bounds
-         }
-         //Надо задать отступы для полей (todoLabeldateTime = todoItem,todoLabelTheme, todoLabelText)
-         //
- */
-   
+        edgesForExtendedLayout = UIRectEdge()
+        
+        // Настройка subviews
+        dateTimeLabel.text = dateToString(todoItem.dateTime)
+        themeLabel.text = todoItem.theme
+        textLabel.text = todoItem.text
+        
+        // Добавление subviews в иерархию
+        view.addSubview(dateTimeLabel)
+        view.addSubview(themeLabel)
+        view.addSubview(textLabel)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        var yOffset: CGFloat = 0
+        let labelHeight: CGFloat = 44
+        let horizontalGap: CGFloat = 15
+        let verticalGap: CGFloat = 10
+        
+        let viewWidth = view.bounds.width
+        let labelWidth = viewWidth - 2 * horizontalGap
+        
+        // Располагаем лейблы в ряд с отступами verticalGap между собой
+        yOffset += verticalGap
+        let dateFrame = CGRect(
+            x: horizontalGap,
+            y: yOffset,
+            width: labelWidth,
+            height: labelHeight
+        )
+        
+        yOffset += labelHeight
+        yOffset += verticalGap
+        let themeFrame = CGRect(
+            x: horizontalGap,
+            y: yOffset,
+            width: labelWidth,
+            height: labelHeight
+        )
+        
+        yOffset += labelHeight
+        yOffset += verticalGap
+        let textFrame = CGRect(
+            x: horizontalGap,
+            y: yOffset,
+            width: labelWidth,
+            height: labelHeight
+        )
+        
+        dateTimeLabel.frame = dateFrame
+        themeLabel.frame = themeFrame
+        textLabel.frame = textFrame
+    }
+    
+    
+    // MARK: Formatting
+    private let DateFormat = "yyyy-MM-dd HH:mm:ss"
+    //функция конвертирует дату в стринг
+    func dateToString(_ date: Date) -> String {
+        // Инициализация форматтера дат
+        let formatter = DateFormatter()
+        // Формат для перевода из Date в String и обратно
+        formatter.dateFormat = DateFormat
+        // Получаем строку из даты
+        let dateString = formatter.string(from: date)
+        
+        return dateString
     }
 }
