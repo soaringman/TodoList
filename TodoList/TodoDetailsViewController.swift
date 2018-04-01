@@ -15,9 +15,16 @@ class TodoDetailsViewController: UIViewController {
     
     
     // MARK: Subviews
+    
+    private var markDateTimeLabel: UILabel
+    private var markTheme: UILabel
+    private var markText: UILabel
+    
     private var dateTimeLabel: UILabel
     private var themeLabel: UILabel
     private var textLabel: UILabel
+    
+    
     
     //задание переменных под кнопки
     private var isCompletedButton: UIButton
@@ -34,6 +41,10 @@ class TodoDetailsViewController: UIViewController {
     {
         self.todoItem = todoItem
         self.todoDataProvider = todoDataProvider
+        
+        markDateTimeLabel = UILabel(frame: .zero)
+        markTheme = UILabel(frame: .zero)
+        markText = UILabel(frame: .zero)
         
         dateTimeLabel = UILabel(frame: .zero)
         themeLabel = UILabel(frame: .zero)
@@ -62,9 +73,47 @@ class TodoDetailsViewController: UIViewController {
         edgesForExtendedLayout = UIRectEdge()
         
         // Настройка subviews
+        //рисуем заголовок Дата
+        markDateTimeLabel.text = "Дата:"
+        markDateTimeLabel.textAlignment = NSTextAlignment.center
+        markDateTimeLabel.layer.borderColor = UIColor.black.cgColor
+        markDateTimeLabel.layer.borderWidth = 1.0
+        markDateTimeLabel.layer.cornerRadius = 10
+        
+        //рисуем текущую дату
         dateTimeLabel.text = dateToString(todoItem.dateTime)
+        dateTimeLabel.textAlignment = NSTextAlignment.center
+        dateTimeLabel.layer.borderColor = UIColor.black.cgColor
+        dateTimeLabel.layer.borderWidth = 1.0
+        dateTimeLabel.layer.cornerRadius = 10
+        
+        //рисуем заголовок Тема
+        markTheme.text = "Тема:"
+        markTheme.textAlignment = NSTextAlignment.center
+        markTheme.layer.borderColor = UIColor.black.cgColor
+        markTheme.layer.borderWidth = 1.0
+        markTheme.layer.cornerRadius = 10
+        
+        //рисуем текущую тему
         themeLabel.text = todoItem.theme
+        themeLabel.textAlignment = NSTextAlignment.center
+        themeLabel.layer.borderColor = UIColor.black.cgColor
+        themeLabel.layer.borderWidth = 1.0
+        themeLabel.layer.cornerRadius = 10
+        
+        //рисуем заголовок текст
+        markText.text = "Текст:"
+        markText.textAlignment = NSTextAlignment.center
+        markText.layer.borderColor = UIColor.black.cgColor
+        markText.layer.borderWidth = 1.0
+        markText.layer.cornerRadius = 10
+        
+        //рисуем текущий текст
         textLabel.text = todoItem.text
+        textLabel.textAlignment = NSTextAlignment.center
+        textLabel.layer.borderColor = UIColor.black.cgColor
+        textLabel.layer.borderWidth = 1.0
+        textLabel.layer.cornerRadius = 10
         
         //настройка кнопки isCompletedButton
         isCompletedButtonImage = UIImage(named: "isCompletedImage")!.withRenderingMode(.alwaysOriginal)
@@ -93,10 +142,20 @@ class TodoDetailsViewController: UIViewController {
         isNotCompletedButton.layer.shadowRadius = 1
         
         // Добавление subviews в иерархию
-        view.addSubview(dateTimeLabel)
-        view.addSubview(themeLabel)
-        view.addSubview(textLabel)
         
+        //добавляем заголовок Дата
+        view.addSubview(markDateTimeLabel)
+        //добавляем текущую дату
+        view.addSubview(dateTimeLabel)
+        //добавляем заголовок Тема
+        view.addSubview(markTheme)
+        //добавляем текущую тему
+        view.addSubview(themeLabel)
+        //добавляем заголовок Текст
+        view.addSubview(markText)
+        //добавляем текущий Текст
+        view.addSubview(textLabel)
+        //добавляфем кнопки
         view.addSubview(isCompletedButton)
         view.addSubview(isNotCompletedButton)
     }
@@ -114,35 +173,66 @@ class TodoDetailsViewController: UIViewController {
         
         // Располагаем лейблы в ряд с отступами verticalGap между собой
         yOffset += verticalGap
+        //располагаем заголовок дата
+        let markDateFrame = CGRect(
+            x: horizontalGap,
+            y: yOffset,
+            width: 50,
+            height: labelHeight
+        )
+        //располагаем дату сообщения
         let dateFrame = CGRect(
-            x: horizontalGap,
+            x: horizontalGap + 100,
             y: yOffset,
-            width: labelWidth,
+            width: 170,
             height: labelHeight
         )
         
         yOffset += labelHeight
         yOffset += verticalGap
+        
+        //располагаем заголовок Тема
+        let markThemeFrame = CGRect(
+            x: horizontalGap,
+            y: yOffset,
+            width: 50,
+            height: labelHeight
+        )
+        
+        //располагаем текущую тему
         let themeFrame = CGRect(
-            x: horizontalGap,
+            x: horizontalGap + 100,
             y: yOffset,
-            width: labelWidth,
+            width: 170,
             height: labelHeight
         )
         
         yOffset += labelHeight
         yOffset += verticalGap
+        
+        //располагаем заголовок текст
+        let markTextFrame = CGRect(
+            x: horizontalGap,
+            y: yOffset,
+            width: 50,
+            height: labelHeight
+        )
+        
+        yOffset += labelHeight
+        yOffset += verticalGap
+        
+        //располагаем текущий текст
         let textFrame = CGRect(
             x: horizontalGap,
             y: yOffset,
-            width: labelWidth,
-            height: labelHeight
+            width: view.bounds.width - horizontalGap * 2,
+            height: view.bounds.height - yOffset - buttonSize - verticalGap
         )
         
         //задание фрейма для кнопки isCompleted
         let iscompletedButtonFrame = CGRect(
-            //x: horizontalGap,
-            x: buttonSize * 2,
+            //x: buttonSize * 2,
+            x: (view.bounds.width / 2) - buttonSize * 2,
             //y: yOffset,
             y: view.bounds.height - buttonSize,
             width: buttonSize,
@@ -152,15 +242,20 @@ class TodoDetailsViewController: UIViewController {
         //задание фрейма для кнопки isNotCompleted
         let isNotcompletedButtonFrame = CGRect(
             //x: horizontalGap,
-            x: view.bounds.width - (buttonSize * 2),
+            x: (view.bounds.width / 2) + buttonSize,
             //y: yOffset,
             y: view.bounds.height - buttonSize,
             width: buttonSize,
             height: buttonSize
         )
         
+        markDateTimeLabel.frame = markDateFrame
         dateTimeLabel.frame = dateFrame
+        
+        markTheme.frame = markThemeFrame
         themeLabel.frame = themeFrame
+        
+        markText.frame = markTextFrame
         textLabel.frame = textFrame
         
         isCompletedButton.frame = iscompletedButtonFrame
