@@ -18,7 +18,7 @@ class TodoDataProvider {
         eachTodoItem = TodoItem(
             dateTime: Date(),
             theme: "Личное",
-            text: "Сходить за покупками на рынок, Постирать белье, Приготовить еду, Сделать английский, Дописать ToDoDetailView",
+            text: "Сходить за покупками на рынок, Постирать белье, Приготовить еду, Сделать английский, Дописать ToDoDetailView. Сходить за покупками на рынок, Постирать белье, Приготовить еду, Сделать английский, Дописать ToDoDetailView. Сходить за покупками на рынок, Постирать белье, Приготовить еду, Сделать английский, Дописать ToDoDetailView",
             isCompleted: false
         )
         todoItems.append(eachTodoItem)

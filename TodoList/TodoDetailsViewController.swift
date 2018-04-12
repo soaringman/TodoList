@@ -10,7 +10,7 @@ import UIKit
 
 class TodoDetailsViewController: UIViewController {
     // MARK: Dependencies
-    private let todoItem: TodoItem
+    private var todoItem: TodoItem
     private let todoDataProvider: TodoDataProvider
     
     
@@ -110,7 +110,8 @@ class TodoDetailsViewController: UIViewController {
         
         //рисуем текущий текст
         textLabel.text = todoItem.text
-        textLabel.textAlignment = NSTextAlignment.center
+        textLabel.numberOfLines = 0
+        textLabel.lineBreakMode = .byWordWrapping
         textLabel.layer.borderColor = UIColor.black.cgColor
         textLabel.layer.borderWidth = 1.0
         textLabel.layer.cornerRadius = 10
@@ -127,6 +128,7 @@ class TodoDetailsViewController: UIViewController {
         isCompletedButton.layer.shadowOffset = CGSize(width: 0, height: 2)
         isCompletedButton.layer.shadowOpacity = 0.1
         isCompletedButton.layer.shadowRadius = 1
+        isCompletedButton.addTarget(self, action: #selector(completedTapped(sender:)), for: .touchUpInside)
         
         //настройка кнопки isNotCompletedButton
         isNotCompletedButtonImage = UIImage(named: "isNotCompletedImage")!.withRenderingMode(.alwaysOriginal)
@@ -140,6 +142,7 @@ class TodoDetailsViewController: UIViewController {
         isNotCompletedButton.layer.shadowOffset = CGSize(width: 0, height: 2)
         isNotCompletedButton.layer.shadowOpacity = 0.1
         isNotCompletedButton.layer.shadowRadius = 1
+        isNotCompletedButton.addTarget(self, action: #selector(notCompletedTapped(sender:)), for: .touchUpInside)
         
         // Добавление subviews в иерархию
         
@@ -222,11 +225,16 @@ class TodoDetailsViewController: UIViewController {
         yOffset += verticalGap
         
         //располагаем текущий текст
+        let preferredTextSize = CGSize(
+            width: view.bounds.width - horizontalGap * 2,
+            height: CGFloat.nan
+        )
+        let actualTextSize = textLabel.sizeThatFits(preferredTextSize)
         let textFrame = CGRect(
             x: horizontalGap,
             y: yOffset,
             width: view.bounds.width - horizontalGap * 2,
-            height: view.bounds.height - yOffset - buttonSize - verticalGap
+            height: actualTextSize.height
         )
         
         //задание фрейма для кнопки isCompleted
@@ -260,6 +268,18 @@ class TodoDetailsViewController: UIViewController {
         
         isCompletedButton.frame = iscompletedButtonFrame
         isNotCompletedButton.frame = isNotcompletedButtonFrame
+    }
+    
+    
+    // MARK: Control's actions
+    @objc
+    private func completedTapped(sender: UIButton) {
+        print("completed")
+    }
+    
+    @objc
+    private func notCompletedTapped(sender: UIButton) {
+        print("not completed")
     }
     
     
