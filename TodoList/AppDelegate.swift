@@ -12,6 +12,13 @@ import UIKit
 class AppAlexeyDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    fileprivate let container: TodoContainer
+    
+    override init() {
+        container = DefaultTodoContainer()
+        
+        super.init()
+    }
 
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -19,9 +26,9 @@ class AppAlexeyDelegate: UIResponder, UIApplicationDelegate {
         window.makeKeyAndVisible()
         self.window = window
         
-        let todoDataProvider = TodoDataProvider()
-        let vc = TodoListViewController(todoDataProvider: todoDataProvider)
-        let navigationViewController = UINavigationController(rootViewController: vc)
+        let todoListModuleFactory = container.getTodoListModuleFactory()
+        let viewController = todoListModuleFactory.module()
+        let navigationViewController = UINavigationController(rootViewController: viewController)
         window.rootViewController = navigationViewController
         
         return true

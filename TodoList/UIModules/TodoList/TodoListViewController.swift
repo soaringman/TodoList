@@ -8,17 +8,25 @@
 
 import UIKit
 
-class TodoListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class TodoListViewController:
+    UIViewController,
+    UITableViewDataSource,
+    UITableViewDelegate
+{
+    fileprivate let todoDataProvider: TodoDataProvider
+    fileprivate let todoDetailsModuleFactory: TodoDetailsModuleFactory
     
-    private let todoDataProvider: TodoDataProvider
     
     // MARK: Subviews
     private var todoListTableView: UITableView!
     
     private var todoItems: [TodoItem] = []
     
-    init(todoDataProvider: TodoDataProvider) {
+    init(todoDataProvider: TodoDataProvider,
+         todoDetailsModuleFactory: TodoDetailsModuleFactory)
+    {
         self.todoDataProvider = todoDataProvider
+        self.todoDetailsModuleFactory = todoDetailsModuleFactory
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -84,10 +92,9 @@ class TodoListViewController: UIViewController, UITableViewDataSource, UITableVi
         tableView.deselectRow(at: indexPath, animated: true)
         
         let todoItem = todoItems[indexPath.row]
-        let detailsViewController = TodoDetailsViewController(
-            todoItem: todoItem,
-            todoDataProvider: todoDataProvider
-        )
+        
+        let todoDetailsModuleSeed = TodoDetailsModuleSeed(todoItem: todoItem)
+        let detailsViewController = todoDetailsModuleFactory.module(moduleSeed: todoDetailsModuleSeed)
         
         navigationController?.pushViewController(detailsViewController, animated: true)
     }
