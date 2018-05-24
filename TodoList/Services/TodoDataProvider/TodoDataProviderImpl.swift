@@ -1,17 +1,18 @@
 //
-//  TodoDataProvider.swift
+//  TodoDataProviderImpl.swift
 //  TodoList
 //
-//  Created by Алексей Гуляев on 01.03.2018.
+//  Created by Алексей Гуляев on 24.05.2018.
 //  Copyright © 2018 Alexey Gulyaev. All rights reserved.
 //
 
 import Foundation
 
-class TodoDataProvider {
+final class TodoDataProviderImpl: TodoDataProvider {
+    fileprivate var todoItems: [TodoItem] = []
     
-    var todoItems: [TodoItem] = []
     
+    // MARK: Init
     init() {
         var eachTodoItem: TodoItem
         
@@ -49,6 +50,7 @@ class TodoDataProvider {
     }
     
     
+    // MARK: TodoDataProvider
     func getTodoItems() -> [TodoItem] {
         return todoItems
     }
@@ -70,3 +72,4 @@ class TodoDataProvider {
         // sdf
     }
 }
+
